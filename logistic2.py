@@ -36,21 +36,30 @@ def cross_entropy(Y, Y_hat):
 			E -= np.log(1 - Y_hat[i])
 	return E
 
-print(cross_entropy(Y, Y_hat))
+# print(cross_entropy(Y, Y_hat))
 
-#closed form bayes classifier solution 
-#0 is bias
-w = np.array([0,4,4])
+# #closed form bayes classifier solution 
+# #0 is bias
+# w = np.array([0,4,4])
 
-z = Xb.dot(w)
-Y_hat = sigmoid(z)
+# z = Xb.dot(w)
+# Y_hat = sigmoid(z)
 
-print(cross_entropy(Y, Y_hat))
+# print(cross_entropy(Y, Y_hat))
 
-plt.scatter(X[:,0], X[:, 1], c=Y, s=100, alpha=0.5)
+# plt.scatter(X[:,0], X[:, 1], c=Y, s=100, alpha=0.5)
 
-x_axis = np.linspace(-6,6, 100)
-y_axis = -x_axis
-plt.plot(x_axis, y_axis)
+# x_axis = np.linspace(-6,6, 100)
+# y_axis = -x_axis
+# plt.plot(x_axis, y_axis)
 
-plt.show()
+# plt.show()
+
+learning_rate = 0.1
+for i in range(100):
+	if i % 10 == 0:
+		print(cross_entropy(Y, Y_hat))
+	w -= learning_rate * Xb.T.dot(Y_hat - Y)
+	Y_hat = sigmoid(Xb.dot(w))
+
+print("Final w:", w)
